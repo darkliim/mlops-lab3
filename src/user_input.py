@@ -1,4 +1,5 @@
 import re   
+from datetime import datetime, date
 
 def ask_username ():
     while True:
@@ -33,6 +34,30 @@ def ask_display_name():
         and display_name.lower() not in ["admin", "root", "moderator", "mod", "null"] :
             break
         else:
-            print("espece de batard, lises bien les regles avant de rentrer ton putan de merde de prenom")
+            print("Please respect the name format!")
 
     return display_name
+
+def ask_birth_date():
+    while True:
+        birth_date = input("Pls enter your birthdate:").strip()
+        pattern = r"^(0[1-9]|[12]\d|3[01])/(0[1-9]|1[0-2])/(19|20)\d{2}$"
+
+        if re.fullmatch(pattern, birth_date):
+
+            try:
+
+                birth_transformed = datetime.strptime(birth_date, "%d/%m/%Y").date()
+                if birth_transformed > date.today():
+                    print("Please enter the date in the past!")
+                else:
+                    return birth_transformed
+                
+            except ValueError("Pls use correct date format!"):
+                print("Pls enter the correct date format!")
+
+        else:print("Pls respect the date format!")
+            
+    
+
+        
